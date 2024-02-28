@@ -30,8 +30,8 @@ import { RunnableSequence } from "langchain/schema/runnable";
 import { ChatPromptTemplate, MessagesPlaceholder } from "langchain/prompts";
 import { AutoML } from "@/app/api/langchain-tools/automl";
 import { MLInfer } from "@/app/api/langchain-tools/ml_infer";
-// import fs from "fs";
-import * as fs from 'node:fs';
+import fs from "fs";
+// import * as fs from 'node:fs';
 import { Model } from "@/app/api/automl/add-model/route";
 import { z } from "zod";
 export interface RequestMessage {
