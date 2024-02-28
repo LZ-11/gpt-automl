@@ -80,5 +80,10 @@
   },
   "resolutions": {
     "lint-staged/yaml": "^2.2.2"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }
