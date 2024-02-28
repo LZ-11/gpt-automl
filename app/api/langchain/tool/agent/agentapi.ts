@@ -275,10 +275,27 @@ export class AgentApi {
 
       // Parse DynamicTools
       const modelPath = "data/models.json";
-      if (fs.existsSync(modelPath)) {
-        const modelList: Model[] = JSON.parse(
-          fs.readFileSync(modelPath, "utf-8"),
-        );
+      // if (fs.existsSync(modelPath)) {
+      if (true) {
+        // const modelList: Model[] = JSON.parse(
+        //   fs.readFileSync(modelPath, "utf-8"),
+        // );
+        const modelList = [
+          {
+            name: 'steelmodel',
+            description: '预测钢的延伸率',
+            features: [
+              '热压温度（℃）',
+              '热压压力（MPa）',
+              '固溶温度（℃）',
+              '固溶时间（min）',
+              '时效温度（℃）',
+              '时效时间（h）'
+            ],
+            target: '延伸率（%）',
+            pipeline_id: 'pipeline_1705400482.joblib'
+          }
+        ]
         modelList.forEach((model) => {
           tools.push(
             new DynamicStructuredTool({
