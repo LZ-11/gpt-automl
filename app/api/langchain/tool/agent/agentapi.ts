@@ -273,45 +273,45 @@ export class AgentApi {
 
       const tools: any[] = [];
 
-      // Parse DynamicTools
-      const modelPath = "data/models.json";
-      if (fs.existsSync(modelPath)) {
-        const modelList: Model[] = JSON.parse(
-          fs.readFileSync(modelPath, "utf-8"),
-        );
-        modelList.forEach((model) => {
-          tools.push(
-            new DynamicStructuredTool({
-              name: model.name ?? "",
-              description: `用于预测 ${model.target}的模型。${model.description}`,
-              schema: z.object(
-                model.features.reduce((pre: any, curr: string) => {
-                  pre[curr] = z.number().describe(curr);
-                  return pre;
-                }, {}),
-              ),
-              func: async (input) => {
-                const response = await fetch(
-                  "http://start-pthon-huo-vlajldjxic.cn-hangzhou.fcapp.run/predict",
-                  {
-                    method: "POST",
-                    body: JSON.stringify({
-                      modelName: model.name,
-                      features: input,
-                    }),
-                  },
-                );
-                return response.text();
-              },
-            }),
-          );
-        });
-      }
-      console.log("🚀 ", tools);
+      // // Parse DynamicTools
+      // const modelPath = "data/models.json";
+      // if (fs.existsSync(modelPath)) {
+      //   const modelList: Model[] = JSON.parse(
+      //     fs.readFileSync(modelPath, "utf-8"),
+      //   );
+      //   modelList.forEach((model) => {
+      //     tools.push(
+      //       new DynamicStructuredTool({
+      //         name: model.name ?? "",
+      //         description: `用于预测 ${model.target}的模型。${model.description}`,
+      //         schema: z.object(
+      //           model.features.reduce((pre: any, curr: string) => {
+      //             pre[curr] = z.number().describe(curr);
+      //             return pre;
+      //           }, {}),
+      //         ),
+      //         func: async (input) => {
+      //           const response = await fetch(
+      //             "http://start-pthon-huo-vlajldjxic.cn-hangzhou.fcapp.run/predict",
+      //             {
+      //               method: "POST",
+      //               body: JSON.stringify({
+      //                 modelName: model.name,
+      //                 features: input,
+      //               }),
+      //             },
+      //           );
+      //           return response.text();
+      //         },
+      //       }),
+      //     );
+      //   });
+      // }
+      // console.log("🚀 ", tools);
 
-      const autoMlTool: langchainTools.Tool = new AutoML();
-      tools.push(autoMlTool);
-      //tools.push(new MLInfer())
+      // const autoMlTool: langchainTools.Tool = new AutoML();
+      // tools.push(autoMlTool);
+      // //tools.push(new MLInfer())
 
       if (useTools.includes("web-search")) tools.push(searchTool);
       // console.log(customTools);
